@@ -83,5 +83,32 @@ function getRandomFruit() {
 //
 function simGames(num) {
 
+  let sumWin = 0;
+  let sumBet = 0;
+  for (let i = 0; i < num; ++i) {
+
+    gBalance -= gBet;
+    gWin = 0;
+
+    for (let i = 0; i < reels * rows; ++i) {
+      if (!isSymbolBlank() && isSymbolWatered()) {
+        let fruit = getRandomFruit();
+        let pay = getFruitPay(fruit);
+        gWin += Number(pay);        
+      }
+    }
+    gBalance += (gWin * 100);
+
+    sumBet += gBet;
+    sumWin += (gWin * 100);
+
+    //console.log("game: " + i + "; balance: " + gBalance);
+  }
+
+  let rtp = 100 * sumWin / sumBet;
+  console.log("RTP: %" + rtp);
+
+
+
 }
 
