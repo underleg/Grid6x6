@@ -17,14 +17,17 @@ function createNewReels() {
   for (let i = 0; i < numSymbolsX; ++i) {
     for (let j = 0; j < numSymbolsY; ++j) {
       let fruit;
+      let pay = 0;
       let isBlank = isSymbolBlank();
       if (isBlank == true) {
         fruit = FRUIT.BLANK;
+        
       } else {
         fruit = getRandomFruit();
+        pay = getFruitPay(fruit);
       }
 
-      symbols.push(createSymbol(i, j, fruit));
+      symbols.push(createSymbol(i, j, fruit, Number(pay)));
     }
   }
 }
@@ -97,6 +100,7 @@ function updateFruitScale(delta) {
       symbols[i].fruitSprite.scale.x = symbols[i].fruitSprite.scale.y = fruitScale;
       symbols[i].fruitSprite.visible = true;
       if (res == true) {
+        gWin += symbols[i].value;
         symbols[i].winText.visible = true;
         symbols[i].waterSprite.visible = false;
       }

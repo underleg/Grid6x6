@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////
 //
-function createSymbol(x, y, fruit) {
+function createSymbol(x, y, fruit, value) {
 
   const fontStyle = new PIXI.TextStyle({
     fontFamily: 'Arial',
@@ -15,7 +15,6 @@ function createSymbol(x, y, fruit) {
 
   let fruitSprite;
   let signSprite;
-  let value = 0;
   let blank = false;
 
   
@@ -23,26 +22,19 @@ function createSymbol(x, y, fruit) {
     blank = true;
     fruitSprite = null;
     signSprite = null;
-    value = 0.0;
   } else if (fruit == FRUIT.F1) {
     fruitSprite = "fruit1.png"; 
     signSprite = "sign_f1.png";
   
-    value = 0.50;
   } else if (fruit == FRUIT.F2) {
     fruitSprite = "fruit2.png";
     signSprite = "sign_f2.png";
-
-    value = 1.00;
   } else if (fruit == FRUIT.F3) {
     fruitSprite = "fruit3.png";
     signSprite = "sign_f3.png";
- 
-    value = 2.00;
   } else {
     fruitSprite = "fruit4.png";
     signSprite = "sign_f4.png";
-    value = 10.00;
   }
 
   let fSprite = null;
@@ -87,18 +79,18 @@ function createSymbol(x, y, fruit) {
 
   dSprite.visible = false;
 
-  winText = new PIXI.Text(0, fontStyle);
-  winText.x = 80;
-  winText.y = 115;
-  winText.anchor.x = winText.anchor.y = 0.5;
-  blankSignSprite.addChild(winText);
-  winText.text = value.toLocaleString('en-US', {
+  wnText = new PIXI.Text(0, fontStyle);
+  wnText.x = 80;
+  wnText.y = 115;
+  wnText.anchor.x = wnText.anchor.y = 0.5;
+  blankSignSprite.addChild(wnText);
+  wnText.text = value.toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
   });
 
 
-  winText.visible = false;
+  wnText.visible = false;
 
 
 
@@ -112,7 +104,7 @@ function createSymbol(x, y, fruit) {
     signSprite: sSprite,
     blankSignSprite: blankSignSprite,
     waterSprite: dSprite,
-    winText: winText
+    winText: wnText
   };
 
   return symbol;

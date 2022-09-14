@@ -17,7 +17,6 @@ let state = STATE_WAIT;
 
 let bgImage;
 
-let gWin = 0;
 
 let app;
 
@@ -60,20 +59,20 @@ function createWinMessage() {
   const fontStyle = new PIXI.TextStyle({
     fontFamily: 'Arial',
     align: "center",
-    fontSize: 180,
+    fontSize: 160,
     fontWeight: 'bold',
     fill: ['#FFFFFF'],
   });
 
 
   winText = new PIXI.Text(0, fontStyle);
-  winText.x = 539;
-  winText.y = 813;
+  winText.x = xsize / 2;
+  winText.y = 715;
   winText.anchor.x = winText.anchor.y = 0.5;
   layer2.addChild(winText);
-  winText.text = "+3 FREE GAMES";
+  winText.text = "";
 
-  winText.visible = false;
+  winText.visible = true;
 }
 
 
@@ -102,11 +101,36 @@ function createMeters() {
   betText.x = 884;
   betText.y = 1843;
   betText.anchor.x = betText.anchor.y = 0.5;
-  betText.text = "$1.50"
+  betText.text = "$1.00"
   layer1.addChild(betText);
 }
 
 
+////////////////////////////////////////////////////////
+function updateMeters() {
+  let bal = gBalance / 100;
+  balanceText.text = bal.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+}
+
+////////////////////////////////////////////////////////
+function updateWinMeter() {
+  if (gWin > 0) {
+    let win = gWin
+    winText.text = win.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
+    gBalance += (gWin * 100);
+    gWin = 0;
+
+    updateMeters();
+  }
+}
 
 ////////////////////////////////////////////////////////
 function createButton() {
@@ -126,6 +150,11 @@ function createButton() {
       resetWaterCans();
       createNewReels();
       signScale = 0.0;
+      gBalance -= gBet;
+      gWin = 0;
+      winText.text = "";
+      updateMeters();
+
       state = STATE_SHOW_SIGNS;
     }
   });
@@ -177,11 +206,13 @@ function handleShowWaterState(delta) {
 function handlePayState(delta) {
   if (updateFruitScale(delta)) {
     console.log("STATE_WAIT");
+    updateWinMeter();
     spinButton.interactive = true;
     state = STATE_WAIT;
   } 
 
 }
+
 
 
 

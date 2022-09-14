@@ -1,3 +1,6 @@
+let gWin = 0;
+let gBalance = 10000;
+let gBet = 100;
 
 let reels = 6;
 let rows = 6;
@@ -23,7 +26,7 @@ const screenScale = 0.4;
 const halfx = xsize / 2;
 
 const buttonX = halfx;
-const buttonY = 1400;
+const buttonY = 1450;
 
 const numSymbolsX = 6;
 const numSymbolsY = 6;
