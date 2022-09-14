@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html>
   
-    <head>
-        <meta charset="UTF-8" />
-        <title>Grid Game</title>
-    </head>
-
-    <body bgcolor="#FFFFFF">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid Game</title>
 
 
+  <script src="https://pixijs.download/release/pixi.js"></script>
+  <script src="globals.js"></script>
+  <script src="maths.js"></script>
+  <script src="symbol.js"></script>
+  <script src="reels.js"></script>
+  <script src="watercans.js"></script>
+  <script src="main.js"></script>
+
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 
+  <script type="text/javascript">
+    window.onload = function () {
+      ready();
+    };
+  </script>
+</head>
 
-      <script src="https://pixijs.download/release/pixi.js"></script>
-      <script src="globals.js"></script>
-      <script src="maths.js"></script>
-      <script src="symbol.js"></script>
-      <script src="reels.js"></script>
-      <script src="watercans.js"></script>
-      <script src="main.js"></script>
+<body bgcolor="#FFFFFF">
 
-      <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-      <script>
-        $(document).ready(function () {
-          ready();
-        });
-      </script>
-
-
-      <!--
-  <form id="not_blank">
-    <label for="not_blank">Change of position having fruit sign (x/100):</label>
-    <input type="number" id="not_blank" value=50.0 name="not_blank">  <br>
+  <form id="gravity_form">
+    <label for="gravity">Gravity:</label>
+    <input type="number" id="gravity" value=20.0 name="gravity">  <br>
   </form>
-    -->
 
-    </body>
+
+
+
+</body>
 </html>
 
 

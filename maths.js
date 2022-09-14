@@ -4,7 +4,10 @@
 //
 function isSymbolBlank() {
   let res = true;
-  let notBlank = 20;
+ 
+
+
+  let notBlank = document.getElementById("gravity").value;
 
 
   let r = Math.floor(Math.random() * 100);

@@ -215,9 +215,6 @@ function ready() {
   document.body.appendChild(app.view);
 
 
-  //let notBlank = document.getElementById("not_blank").value;
-  //console.log("EEEP " + notBlank.value);
-
   // layers
   layer1 = new PIXI.Container();
   app.stage.addChild(layer1);
