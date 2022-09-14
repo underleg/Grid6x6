@@ -61,6 +61,49 @@ function updateSignScale(delta) {
 }
 
 
+/////////////////////////////////////////////
+//
+function initPayDisplay() {
 
+  fruitScale = 0.0;
+
+  for (let i = 0; i < symbols.length; ++i) {
+
+    if (symbols[i].blank == false && symbols[i].waterSprite.visible == true) {
+      symbols[i].signSprite.visible = false;
+      symbols[i].blankSignSprite.visible = true;
+      symbols[i].fruitSprite.scale.x = symbols[i].fruitSprite.scale.y = 0.0;
+      symbols[i].fruitSprite.visible = true;
+      //symbols[i].winText.visible = true;
+    }
+  }
+
+}
+
+
+/////////////////////////////////////////////
+//
+function updateFruitScale(delta) {
+  let res = false;
+  fruitScale += 0.1 * delta;
+  if (fruitScale > 1.0) {
+    fruitScale = 1.0;
+    res = true;
+  }
+
+  for (let i = 0; i < symbols.length; ++i) {
+
+    if (symbols[i].blank == false && symbols[i].waterSprite.visible == true) {
+      symbols[i].fruitSprite.scale.x = symbols[i].fruitSprite.scale.y = fruitScale;
+      symbols[i].fruitSprite.visible = true;
+      if (res == true) {
+        symbols[i].winText.visible = true;
+        symbols[i].waterSprite.visible = false;
+      }
+    }
+  }
+
+  return res;
+}
 
 

@@ -48,6 +48,7 @@ let symbols = [];
 let watercans = [];
 
 let signScale = 0.0;
+let fruitScale = 0.0;
 
 let waterDrops = [];
 

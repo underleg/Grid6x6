@@ -64,12 +64,16 @@ function moveWaterCans(delta) {
 //////////////////////////////////////
 //
 function resetWaterCans() {
+
+  let delay = 0;
   for (let i = 0; i < watercans.length; ++i) {
     watercans[i].y = waterCanStartY;
     watercans[i].visible = true;
     watercans[i].symbolsPassed = [false, false, false, false, false, false];
+
+    watercans[i].delay = delay;
+    watercans[i].delayTracker = 0;
+    delay += waterCanDelay;
    
   }
 }
-
-

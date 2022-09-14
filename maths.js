@@ -3,10 +3,13 @@
 ////////////////////////////////////////////
 //
 function isSymbolBlank() {
-  let res = false;
-  let r = Math.floor(Math.random() * 10);
-  if (r < 5) {
-    res = true;
+  let res = true;
+  let notBlank = 20;
+
+
+  let r = Math.floor(Math.random() * 100);
+  if (r < notBlank) {
+    res = false;
   }
 
   return res;
@@ -17,8 +20,8 @@ function isSymbolBlank() {
 //
 function isSymbolWatered() {
   let res = false;
-  let r = Math.floor(Math.random() * 10);
-  if (r < 5) {
+  let r = Math.floor(Math.random() * 100);
+  if (r < 20) {
     res = true;
   }
 

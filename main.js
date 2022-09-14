@@ -13,7 +13,6 @@ let STATE_SHOW_SIGNS = 2;
 let STATE_SHOW_WATER = 3;
 let STATE_PAY = 4;
 
-
 let state = STATE_WAIT;
 
 let bgImage;
@@ -85,9 +84,9 @@ function createMeters() {
   const fontStyle = new PIXI.TextStyle({
     fontFamily: 'Arial',
     align: "center",
-    fontSize: 32,
+    fontSize: 46,
     fontWeight: 'bold',
-    fill: ['#ffcc00'],
+    fill: ['#ffffff'],
   });
 
 
@@ -124,6 +123,7 @@ function createButton() {
   spinButton.on('click', function (e) {
     if (state == STATE_WAIT) {
       spinButton.interactive = false;
+      resetWaterCans();
       createNewReels();
       signScale = 0.0;
       state = STATE_SHOW_SIGNS;
@@ -146,16 +146,15 @@ function createButton() {
 // wait for button press
 function handleWaitState(delta) {
 
-  // console.log("WAIT_STATE");
 
-  }
+}
 
 
 ////////////////////////////////////////////////////////
 // 
 function handleShowSignState(delta) {
   if (updateSignScale(delta)) {
-
+    console.log("STATE_SHOW_WATER");
     state = STATE_SHOW_WATER;
   }
 }
@@ -165,6 +164,8 @@ function handleShowSignState(delta) {
 function handleShowWaterState(delta) {
 
   if (moveWaterCans(delta)) {
+    console.log("STATE_PAY");
+    initPayDisplay();
     state = STATE_PAY;
   }
 
@@ -174,7 +175,11 @@ function handleShowWaterState(delta) {
 ////////////////////////////////////////////////////////
 // 
 function handlePayState(delta) {
-
+  if (updateFruitScale(delta)) {
+    console.log("STATE_WAIT");
+    spinButton.interactive = true;
+    state = STATE_WAIT;
+  } 
 
 }
 
@@ -199,12 +204,19 @@ function update(delta) {
 ////////////////////////////////////////////////////////
 // Create the application helper and add its render target to the page
 let isReady = false;
+
+
+
 function ready() {
 
   app = new PIXI.Application({ backgroundColor: 0xffffff, width: xsize * screenScale, height: ysize * screenScale });
   app.stage.scale.x = screenScale;
   app.stage.scale.y = screenScale;
   document.body.appendChild(app.view);
+
+
+  //let notBlank = document.getElementById("not_blank").value;
+  //console.log("EEEP " + notBlank.value);
 
   // layers
   layer1 = new PIXI.Container();
@@ -222,8 +234,6 @@ function ready() {
   createButton();
 
   isReady = true;
-
- 
 
   createNewReels();
   createWaterCans();

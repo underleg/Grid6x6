@@ -1,11 +1,20 @@
+  
 
 /////////////////////////////////////////////
 //
 function createSymbol(x, y, fruit) {
 
+  const fontStyle = new PIXI.TextStyle({
+    fontFamily: 'Arial',
+    align: "center",
+    fontSize: 36,
+    fontWeight: 'bold',
+    fill: ['#FFFFFF'],
+  });
+
+
   let fruitSprite;
   let signSprite;
-  let cashSprite;
   let value = 0;
   let blank = false;
 
@@ -14,28 +23,26 @@ function createSymbol(x, y, fruit) {
     blank = true;
     fruitSprite = null;
     signSprite = null;
-    cashSprite = null;
     value = 0.0;
   } else if (fruit == FRUIT.F1) {
     fruitSprite = "fruit1.png"; 
     signSprite = "sign_f1.png";
-    cashSprite = "sign_50.png";
+  
     value = 0.50;
   } else if (fruit == FRUIT.F2) {
     fruitSprite = "fruit2.png";
     signSprite = "sign_f2.png";
-    cashSprite = "sign_100.png";
+
     value = 1.00;
   } else if (fruit == FRUIT.F3) {
     fruitSprite = "fruit3.png";
     signSprite = "sign_f3.png";
-    cashSprite = "sign_500.png";
-    value = 5.00;
+ 
+    value = 2.00;
   } else {
     fruitSprite = "fruit4.png";
     signSprite = "sign_f4.png";
-    cashSprite = "sign_2000.png";
-    value = 20.00;
+    value = 10.00;
   }
 
   let fSprite = null;
@@ -43,9 +50,11 @@ function createSymbol(x, y, fruit) {
     fSprite = PIXI.Sprite.from("gfx/" + fruitSprite);
     layer1.addChild(fSprite);
     fSprite.visible = false;
+    fSprite.anchor.x = 0.5;
+    fSprite.anchor.y = 1.0;
 
-    fSprite.x = startReelX + x * symbolDX;
-    fSprite.y = startReelY + y * symbolDY;
+    fSprite.x = startReelX + x * symbolDX + (symbolImageSize / 2);
+    fSprite.y = startReelY + y * symbolDY + (symbolImageSize);
   }
 
 
@@ -64,21 +73,11 @@ function createSymbol(x, y, fruit) {
 
   let blankSignSprite = PIXI.Sprite.from("gfx/sign_blank.png");
 
-  if (blank) {
-    blankSignSprite.x = startReelX + x * symbolDX;
-    blankSignSprite.y = startReelY + y * symbolDY;
-    layer1.addChild(blankSignSprite);
-  } else {
-    fSprite.addChild(blankSignSprite);
-  }
-  blankSignSprite.visible = false;
+  blankSignSprite.x = startReelX + x * symbolDX;
+  blankSignSprite.y = startReelY + y * symbolDY;
+  layer1.addChild(blankSignSprite);
 
-  let cSprite = null;
-  if (!blank) {
-    cSprite = PIXI.Sprite.from("gfx/" + cashSprite);
-    blankSignSprite.addChild(cSprite);
-    cSprite.visible = false;
-  }
+  blankSignSprite.visible = false;
 
   let dSprite = null;
   dSprite = PIXI.Sprite.from("gfx/waterdrop.png");
@@ -87,7 +86,21 @@ function createSymbol(x, y, fruit) {
   dSprite.y = startReelY + y * symbolDY;
 
   dSprite.visible = false;
-  
+
+  winText = new PIXI.Text(0, fontStyle);
+  winText.x = 80;
+  winText.y = 115;
+  winText.anchor.x = winText.anchor.y = 0.5;
+  blankSignSprite.addChild(winText);
+  winText.text = value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+
+  winText.visible = false;
+
+
 
   let symbol = {
     blank: blank,
@@ -98,8 +111,8 @@ function createSymbol(x, y, fruit) {
     fruitSprite: fSprite,
     signSprite: sSprite,
     blankSignSprite: blankSignSprite,
-    cashSprite: cSprite,
-    waterSprite: dSprite
+    waterSprite: dSprite,
+    winText: winText
   };
 
   return symbol;
@@ -110,8 +123,12 @@ function createSymbol(x, y, fruit) {
 //
 function destroySymbol(sym) {
 
-  if (sym.cashSprite != null) {
-    sym.cashSprite.parent.removeChild(sym.cashSprite);
+  if (sym.waterSprite != null) {
+    sym.waterSprite.parent.removeChild(sym.waterSprite);
+  }
+
+  if (sym.winText != null) {
+    sym.winText.parent.removeChild(sym.winText);
   }
 
   sym.blankSignSprite.parent.removeChild(sym.blankSignSprite);
@@ -124,7 +141,8 @@ function destroySymbol(sym) {
     sym.fruitSprite.parent.removeChild(sym.fruitSprite);
   }
 
-  sym.cashSprite = null;
+  sym.waterSprite = null;
+  sym.winText = null;
   sym.blankSignSprite = null;
   sym.signSprite = null;
   sym.fruitSprite = null;
