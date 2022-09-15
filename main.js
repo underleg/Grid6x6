@@ -4,6 +4,7 @@ let spinButton;
 let winText;
 let bonusText;
 
+
 let balance = 1000000;
 let bet = 10;
 let win = 0;
@@ -75,6 +76,29 @@ function createWinMessage() {
   winText.visible = true;
 }
 
+
+
+////////////////////////////////////////////////////////
+function createRTPMessage() {
+
+  const fontStyle = new PIXI.TextStyle({
+    fontFamily: 'Arial',
+    align: "center",
+    fontSize: 32,
+    fontWeight: 'bold',
+    fill: ['#FFFFFF'],
+  });
+
+
+  rtpText = new PIXI.Text(0, fontStyle);
+  rtpText.x = xsize / 2;
+  rtpText.y = ysize - 20;
+  rtpText.anchor.x = rtpText.anchor.y = 0.5;
+  layer2.addChild(rtpText);
+  rtpText.text = "";
+
+  rtpText.visible = true;
+}
 
 
 ////////////////////////////////////////////////////////
@@ -258,6 +282,7 @@ function ready() {
   loadBackground();
   createMaths();
   createWinMessage();
+  createRTPMessage();
   createMeters();
   createButton();
 

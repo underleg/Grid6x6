@@ -106,9 +106,8 @@ function simGames(num) {
   }
 
   let rtp = 100 * sumWin / sumBet;
+  rtpText.text = "%" + rtp;
   console.log("RTP: %" + rtp);
-
-
 
 }
 

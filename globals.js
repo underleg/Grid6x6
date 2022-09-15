@@ -41,7 +41,7 @@ const FRUIT = {
 };
 
 
-const waterCanStartY = 30;
+const waterCanStartY = 70;
 let waterCanY = [];
 let waterCanDelay = 10;
 let watercanFinishY = 1295;
@@ -55,5 +55,7 @@ let fruitScale = 0.0;
 
 let waterDrops = [];
 
+
+let rtpText;
 
 
